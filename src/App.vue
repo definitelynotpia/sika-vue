@@ -1,9 +1,11 @@
 <template>
   <v-layout class="d-flex justify-center align-center">
     <v-bottom-navigation grow>
+
       <v-btn value="home" to="/">
-        <v-icon :icon="mdiHomeVariant"></v-icon>
-        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/">
+          <svg-icon type="mdi" :path="mdiHomeVariant"></svg-icon>
+        </RouterLink>
       </v-btn>
 
       <v-btn value="login" to="/login">
@@ -22,13 +24,23 @@
   </v-layout>
 </template>
 
-<script setup>
-  import { mdiHomeVariant } from '@mdi/js'
-</script>
-
 <script>
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiHomeVariant, mdiLoginVariant, } from '@mdi/js'
+
+
+
 export default {
   name: "App",
+  components: {
+    SvgIcon
+  },
+  data() {
+    return {
+      mdiHomeVariant: mdiHomeVariant,
+      mdiLoginVariant: mdiLoginVariant ,
+    }
+  },
 };
 </script>
 

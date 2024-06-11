@@ -17,8 +17,7 @@
       </v-form>
     </v-sheet>
     Don't have an account?<v-btn variant="text" density="compact" @click="goToRegister"
-      >Register</v-btn
-    >
+      >Register</v-btn>
   </div>
 </template>
 
