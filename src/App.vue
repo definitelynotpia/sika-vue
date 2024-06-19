@@ -9,14 +9,15 @@
       </v-btn>
 
       <v-btn value="login" to="/login">
-        <v-icon>mdi-heart</v-icon>
-
-        <RouterLink to="/login">Login</RouterLink>
+        <RouterLink to="/login">
+          <svg-icon type="mdi" :path="mdiAccount"></svg-icon>
+        </RouterLink>
       </v-btn>
 
       <v-btn value="register" to="/register">
-        <v-icon>mdi-map-marker</v-icon>
-        <RouterLink to="/register">Register</RouterLink>
+        <RouterLink to="/register">
+          <svg-icon type="mdi" :path="mdiHomeVariant"></svg-icon>
+        </RouterLink>
       </v-btn>
     </v-bottom-navigation>
 
@@ -25,10 +26,9 @@
 </template>
 
 <script>
+// icons
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiHomeVariant, mdiLoginVariant, } from '@mdi/js'
-
-
+import { mdiHomeVariant, mdiLoginVariant, mdiAccount } from '@mdi/js'
 
 export default {
   name: "App",
@@ -38,7 +38,8 @@ export default {
   data() {
     return {
       mdiHomeVariant: mdiHomeVariant,
-      mdiLoginVariant: mdiLoginVariant ,
+      mdiLoginVariant: mdiLoginVariant,
+      mdiAccount: mdiAccount,
     }
   },
 };
@@ -51,6 +52,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
