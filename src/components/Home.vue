@@ -31,7 +31,7 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiDelete, mdiPlay, mdiExportVariant } from '@mdi/js'
 
 export default {
-    name: "LoginView",
+    name: "HomeView",
     components: {
         SvgIcon
     },

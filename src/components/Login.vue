@@ -7,12 +7,39 @@
 
           <template v-slot:[`item.1`]>
             <v-row align="center" justify="space-around" no-gutters>
-              <v-col cols="4">
+              <v-col cols="3">
                 <v-avatar ref="avatar" :image="displayAvatar" rounded="0" size="100%"></v-avatar>
+                <v-text-field v-model="username" :rules="[required, usernameRules]" label="Username" variant="solo"
+                  class="mt-5"></v-text-field>
+
+                <v-row>
+                  <v-col>
+                    <v-dialog ref="dialog" v-model="modal" :propname="date" persistent>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field v-model="date" label="Date of Birth" variant="solo" readonly v-bind="attrs"
+                          v-on="on"></v-text-field>
+                      </template>
+                      <v-date-picker v-model="date" scrollable>
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary" @click="modal = false">
+                          Cancel
+                        </v-btn>
+                        <v-btn text color="primary" @click="$refs.dialog.save(date)">
+                          OK
+                        </v-btn>
+                      </v-date-picker>
+                    </v-dialog>
+                  </v-col>
+
+                  <v-col>
+                    <v-text-field v-model="pronouns" :rules="[required]" label="Pronouns" variant="solo"></v-text-field>
+                  </v-col>
+                </v-row>
+
               </v-col>
 
-              <v-col cols="7">
-                <v-card color="light-green-lighten-4" width="100%">
+              <v-col cols="8">
+                <v-card color="light-green-lighten-4" height="500" width="950">
 
                   <v-tabs v-model="tab" align-tabs="center" variant="text" bg-color="yellow-darken-3">
                     <v-tab value="skinColor">skinColor</v-tab>
@@ -27,84 +54,148 @@
                   <v-card-text>
                     <v-tabs-window v-model="tab">
                       <v-tabs-window-item value="skinColor">
-                        <v-btn-toggle v-model="skinColor" variant="outlined" class="flex-wrap" mandatory>
-                          <v-btn value="8c5a2b" style="background: #8c5a2b;" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="a47539" style="background: #a47539;" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="c99c62" style="background: #c99c62;" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="e2ba87" style="background: #e2ba87;" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="efcc9f" style="background: #efcc9f;" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="f5d7b1" style="background: #f5d7b1;" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="ffe4c0" style="background: #ffe4c0;" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
+                        <v-btn-toggle v-model="skinColor" variant="outlined"
+                          class="d-flex flex-wrap justify-content align-center" style="width: 200%; height: 200%"
+                          mandatory>
+                          <v-btn value="8c5a2b" style="background: #8c5a2b;" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                          <v-btn value="a47539" style="background: #a47539;" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                          <v-btn value="c99c62" style="background: #c99c62;" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                          <v-btn value="e2ba87" style="background: #e2ba87;" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                          <v-btn value="efcc9f" style="background: #efcc9f;" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                          <v-btn value="f5d7b1" style="background: #f5d7b1;" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                          <v-btn value="ffe4c0" style="background: #ffe4c0;" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
                         </v-btn-toggle>
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="eyes">
-                        <v-btn-toggle v-model="eyes" variant="text" class="flex-wrap" mandatory>
-                          <v-btn value="cheery" rounded="xl" size="x-large" class="mx-1 border-lg">cheery</v-btn>
-                          <v-btn value="starstruck" rounded="xl" size="x-large" class="mx-1 border-lg">starstruck</v-btn>
-                          <v-btn value="winking" rounded="xl" size="x-large" class="mx-1 border-lg">winking</v-btn>
-                          <v-btn value="normal" rounded="xl" size="x-large" class="mx-1 border-lg">normal</v-btn>
-                        </v-btn-toggle>
+                        <div class="d-flex flex-row flex-wrap justify-content align-center">
+                          <v-img class="mr-16 my-5" width="100" max-width="100"
+                            :src="require('../assets/avatar/cheery.svg')" v-on:click="eyes = 'cheery'" />
+                          <v-img class="ml-16 mr-16 my-5" width="100" max-width="100"
+                            :src="require('../assets/avatar/starstruck.svg')" v-on:click="eyes = 'starstruck'" />
+                          <v-img class="ml-16 mr-16 my-5" width="100" max-width="100"
+                            :src="require('../assets/avatar/winking.svg')" v-on:click="eyes = 'winking'" />
+                          <v-img class="ml-16 my-5" width="100" max-width="100"
+                            :src="require('../assets/avatar/normal.svg')" v-on:click="eyes = 'normal'" />
+                        </div>
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="mouth">
-                        <v-btn-toggle v-model="mouth" variant="text" class="flex-wrap" mandatory>
-                          <v-btn value="braces" rounded="xl" size="x-large" class="mx-1 border-lg">braces</v-btn>
-                          <v-btn value="gapSmile" rounded="xl" size="x-large" class="mx-1 border-lg">gapSmile</v-btn>
-                          <v-btn value="kawaii" rounded="xl" size="x-large" class="mx-1 border-lg">kawaii</v-btn>
-                          <v-btn value="openedSmile" rounded="xl" size="x-large" class="mx-1 border-lg">openedSmile</v-btn>
-                          <v-btn value="teethSmile" rounded="xl" size="x-large" class="mx-1 border-lg">teethSmile</v-btn>
-                          <v-btn value="awkwardSmile" rounded="xl" size="x-large" class="mx-1 border-lg">awkwardSmile</v-btn>
-                        </v-btn-toggle>
+                        <div class="d-flex flex-row flex-wrap justify-content align-center">
+                          <v-img class="ma-3" width="150" max-width="150" :src="require('../assets/avatar/braces.svg')"
+                            v-on:click="mouth = 'braces'" />
+                          <v-img class="ma-3" width="150" max-width="150"
+                            :src="require('../assets/avatar/gapSmile.svg')" v-on:click="mouth = 'gapSmile'" />
+                          <v-img class="ma-3" width="150" max-width="150" :src="require('../assets/avatar/kawaii.svg')"
+                            v-on:click="mouth = 'kawaii'" />
+                          <v-img class="ma-3" width="150" max-width="150"
+                            :src="require('../assets/avatar/openedSmile.svg')" v-on:click="mouth = 'openedSmile'" />
+                          <v-img class="ma-3" width="150" max-width="150"
+                            :src="require('../assets/avatar/teethSmile.svg')" v-on:click="mouth = 'teethSmile'" />
+                          <v-img class="ma-3" width="150" max-width="150"
+                            :src="require('../assets/avatar/awkwardSmile.svg')" v-on:click="mouth = 'awkwardSmile'" />
+                        </div>
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="hair">
-                        <v-btn-toggle v-model="hair" variant="text" class="flex-wrap" mandatory>
-                          <v-btn value="curlyBob" rounded="xl" size="x-large" class="mx-1 border-lg">curlyBob</v-btn>
-                          <v-btn value="straightHair" rounded="xl" size="x-large" class="mx-1 border-lg">straightHair</v-btn>
-                          <v-btn value="shortHair" rounded="xl" size="x-large" class="mx-1 border-lg">shortHair</v-btn>
-                          <v-btn value="shavedHead" rounded="xl" size="x-large" class="mx-1 border-lg">shavedHead</v-btn>
-                          <v-btn value="mohawk" rounded="xl" size="x-large" class="mx-1 border-lg">mohawk</v-btn>
-                          <v-btn value="halfShavedHead" rounded="xl" size="x-large" class="mx-1 border-lg">halfShavedHead</v-btn>
-                          <v-btn value="froBun" rounded="xl" size="x-large" class="mx-1 border-lg">froBun</v-btn>
-                          <v-btn value="curlyShortHair" rounded="xl" size="x-large" class="mx-1 border-lg">curlyShortHair</v-btn>
-                        </v-btn-toggle>
+                        <div class="d-flex flex-row flex-wrap justify-content align-center">
+                          <v-img class="mx-3" width="130" max-width="130"
+                            :src="require('../assets/avatar/curlyBob.svg')" v-on:click="hair = 'curlyBob'" />
+                          <v-img class="mx-3" width="130" max-width="130"
+                            :src="require('../assets/avatar/straightHair.svg')" v-on:click="hair = 'straightHair'" />
+                          <v-img class="mx-3" width="130" max-width="130"
+                            :src="require('../assets/avatar/shortHair.svg')" v-on:click="hair = 'shortHair'" />
+                          <v-img class="mx-3" width="130" max-width="130"
+                            :src="require('../assets/avatar/shavedHead.svg')" v-on:click="hair = 'shavedHead'" />
+                          <v-img class="mx-3" width="130" max-width="130" :src="require('../assets/avatar/mohawk.svg')"
+                            v-on:click="hair = 'mohawk'" />
+                          <v-img class="mx-3" width="130" max-width="130"
+                            :src="require('../assets/avatar/halfShavedHead.svg')"
+                            v-on:click="hair = 'halfShavedHead'" />
+                          <v-img class="mx-3" width="130" max-width="130" :src="require('../assets/avatar/froBun.svg')"
+                            v-on:click="hair = 'froBun'" />
+                          <v-img class="mx-3" width="130" max-width="130"
+                            :src="require('../assets/avatar/curlyShortHair.svg')"
+                            v-on:click="hair = 'curlyShortHair'" />
+                          <v-img class="mx-3" width="130" max-width="130" :src="require('../assets/avatar/bunHair.svg')"
+                            v-on:click="hair = 'bunHair'" />
+                          <v-img class="mx-3" width="130" max-width="130"
+                            :src="require('../assets/avatar/curlyBob.svg')" v-on:click="hair = 'curlyBob'" />
+                          <v-img class="mx-3" width="130" max-width="130" :src="require('../assets/avatar/wavyBob.svg')"
+                            v-on:click="hair = 'wavyBob'" />
+                          <v-img class="mx-3" width="130" max-width="130" :src="require('../assets/avatar/bangs.svg')"
+                            v-on:click="hair = 'bangs'" />
+                          <v-img class="mx-3" width="130" max-width="130"
+                            :src="require('../assets/avatar/bowlCutHair.svg')" v-on:click="hair = 'bowlCutHair'" />
+                        </div>
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="hairColor">
-                        <v-btn-toggle v-model="hairColor" variant="outlined" class="flex-wrap" mandatory>
-                          <v-btn value="220f00" style="background: #220f00" rounded="xl" size="x-large" class="mx-1 border-lg"></v-btn>
-                          <v-btn value="238d80" style="background: #238d80" rounded="xl" size="x-large" class="mx-1 border-lg"></v-btn>
-                          <v-btn value="3a1a00" style="background: #3a1a00" rounded="xl" size="x-large" class="mx-1 border-lg"></v-btn>
-                          <v-btn value="605de4" style="background: #605de4" rounded="xl" size="x-large" class="mx-1 border-lg"></v-btn>
-                          <v-btn value="71472d" style="background: #71472d" rounded="xl" size="x-large" class="mx-1 border-lg"></v-btn>
-                          <v-btn value="d56c0c" style="background: #d56c0c" rounded="xl" size="x-large" class="mx-1 border-lg"></v-btn>
-                          <v-btn value="e2ba87" style="background: #e2ba87" rounded="xl" size="x-large" class="mx-1 border-lg"></v-btn>
-                          <v-btn value="e9b729" style="background: #e9b729" rounded="xl" size="x-large" class="mx-1 border-lg"></v-btn>
+                        <v-btn-toggle v-model="hairColor" variant="outlined"
+                          class="d-flex flex-wrap justify-content align-center" mandatory>
+                          <v-btn value="220f00" style="background: #220f00" rounded="xl" size="x-large"
+                            class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="238d80" style="background: #238d80" rounded="xl" size="x-large"
+                            class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="3a1a00" style="background: #3a1a00" rounded="xl" size="x-large"
+                            class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="605de4" style="background: #605de4" rounded="xl" size="x-large"
+                            class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="71472d" style="background: #71472d" rounded="xl" size="x-large"
+                            class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="d56c0c" style="background: #d56c0c" rounded="xl" size="x-large"
+                            class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="e2ba87" style="background: #e2ba87" rounded="xl" size="x-large"
+                            class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="e9b729" style="background: #e9b729" rounded="xl" size="x-large"
+                            class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
                         </v-btn-toggle>
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="accessories">
-                        <v-btn-toggle v-model="accessories" variant="text" class="flex-wrap" mandatory>
-                          <v-btn value="">none</v-btn>
-                          <v-btn value="glasses">glasses</v-btn>
-                          <v-btn value="catEars">catEars</v-btn>
-                          <v-btn value="clownNose">clownNose</v-btn>
-                          <v-btn value="faceMask">faceMask</v-btn>
-                          <v-btn value="sailormoonCrown">sailormoonCrown</v-btn>
-                          <v-btn value="sunglasses">sunglasses</v-btn>
-                          <v-btn value="sleepMask">sleepMask</v-btn>
-                          <v-btn value="mustache">mustache</v-btn>
-                        </v-btn-toggle>
+                        <div class="d-flex flex-row flex-wrap justify-content align-center">
+                          <v-btn class="pa-2 border-lg" rounded="xl" size="x-large"
+                            v-on:click="accessories = ''">none</v-btn>
+                          <v-img class="ml-16 mb-7" width="160" max-width="160"
+                            :src="require('../assets/avatar/glasses.svg')" v-on:click="accessories = 'glasses'" />
+                          <v-img class="ml-16 mb-7" width="160" max-width="160"
+                            :src="require('../assets/avatar/catEars.svg')" v-on:click="accessories = 'catEars'" />
+                          <v-img class="ml-16 mb-7" width="50" max-width="50"
+                            :src="require('../assets/avatar/clownNose.svg')" v-on:click="accessories = 'clownNose'" />
+                          <v-img class="ml-16 mb-7" width="160" max-width="160"
+                            :src="require('../assets/avatar/faceMask.svg')" v-on:click="accessories = 'faceMask'" />
+                          <v-img class="ml-16 mb-7" width="160" max-width="160"
+                            :src="require('../assets/avatar/sailormoonCrown.svg')"
+                            v-on:click="accessories = 'sailormoonCrown'" />
+                          <v-img class="ml-16 mb-7" width="160" max-width="160"
+                            :src="require('../assets/avatar/sunglasses.svg')" v-on:click="accessories = 'sunglasses'" />
+                          <v-img class="ml-16 mb-7" width="160" max-width="160"
+                            :src="require('../assets/avatar/sleepMask.svg')" v-on:click="accessories = 'sleepMask'" />
+                          <v-img class="ml-16 mb-7" width="160" max-width="160"
+                            :src="require('../assets/avatar/mustache.svg')" v-on:click="accessories = 'mustache'" />
+                        </div>
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="bgColor">
-                        <v-btn-toggle v-model="bgColor" variant="outlined" class="flex-wrap" mandatory>
-                          <v-btn value="b6e3f4" style="background: #b6e3f4" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="c0aede" style="background: #c0aede" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="d1d4f9" style="background: #d1d4f9" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="ffd5dc" style="background: #ffd5dc" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
-                          <v-btn value="ffdfbf" style="background: #ffdfbf" rounded="xl" size="x-large" class="mx-3 border-lg"></v-btn>
+                        <v-btn-toggle v-model="bgColor" variant="outlined"
+                          class="d-flex flex-wrap justify-content align-center" mandatory>
+                          <v-btn value="b6e3f4" style="background: #b6e3f4" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="c0aede" style="background: #c0aede" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="d1d4f9" style="background: #d1d4f9" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="ffd5dc" style="background: #ffd5dc" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
+                          <v-btn value="ffdfbf" style="background: #ffdfbf" rounded="xl" size="x-large"
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
                         </v-btn-toggle>
                       </v-tabs-window-item>
                     </v-tabs-window>
@@ -121,9 +212,6 @@
                 <v-text-field v-model="username" :rules="usernameRules" label="Username"></v-text-field>
                 <v-btn class="mt-2" type="submit" v-on:click="login" block>Login</v-btn>
               </v-form>
-              <v-btn class="mt-2" color="blue-darken-3" type="submit" v-on:click="loginWithGoogle" block>
-                Login with Google
-              </v-btn>
             </v-card>
           </template>
 
@@ -149,16 +237,11 @@ import {
 // avatar API
 import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
-// icons
-// import SvgIcon from '@jamescoyle/vue-icon';
-// import { mdiRefresh } from '@mdi/js';
 
 export default {
   name: "LoginView",
-  // components: {
-  //   SvgIcon
-  // },
   data: () => ({
+    tab: null,
     // avatar
     skinColor: "e2ba87",
     eyes: "cheery",
@@ -167,15 +250,11 @@ export default {
     hairColor: "605de4",
     accessories: "glasses",
     bgColor: "c0aede",
-    // icon
-    // mdiRefresh: mdiRefresh,
-    // auth
-    tab: null,
+    // forms
+    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    menu: false,
+    pronouns: "",
     username: "",
-    usernameRules: [
-      (v) => !!v || "Required",
-      (v) => /^(?=.{8,20}$)(?![.-])(?!.*[.]{2})[a-zA-Z0-9.-]+(?<![.])$/.test(v) || "Username must be 8-20 characters long. Avoid adding underscores, dashes, and periods.",
-    ],
   }),
   computed: {
     setAccessories() {
@@ -200,8 +279,12 @@ export default {
     }
   },
   methods: {
-    goToRegister() {
-      this.$router.push("/register");
+    // form validation
+    required(v) {
+      return !!v || 'Field is required'
+    },
+    usernameCheck(v) {
+      return /^(?=.{8,20}$)(?![.-])(?!.*[.]{2})[a-zA-Z0-9.-]+(?<![.])$/.test(v) || "Username must be 8-20 characters long. Avoid adding underscores, dashes, and periods."
     },
     login() {
       const email = this.email;
