@@ -8,29 +8,13 @@
           <template v-slot:[`item.1`]>
             <v-row align="center" justify="space-around" no-gutters>
               <v-col cols="3">
-                <v-avatar ref="avatar" :image="displayAvatar" rounded="0" size="100%"></v-avatar>
+                <v-avatar ref="avatar" :image="displayAvatar" size="100%"></v-avatar>
                 <v-text-field v-model="username" :rules="[required, usernameRules]" label="Username" variant="solo"
                   class="mt-5"></v-text-field>
-
                 <v-row>
                   <v-col>
-                    <v-dialog ref="dialog" v-model="modal" :propname="date" persistent>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field v-model="date" label="Date of Birth" variant="solo" readonly v-bind="attrs"
-                          v-on="on"></v-text-field>
-                      </template>
-                      <v-date-picker v-model="date" scrollable>
-                        <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="modal = false">
-                          Cancel
-                        </v-btn>
-                        <v-btn text color="primary" @click="$refs.dialog.save(date)">
-                          OK
-                        </v-btn>
-                      </v-date-picker>
-                    </v-dialog>
+                    <v-date-input v-model="date" label="Date of Birth" prepend-icon="" variant="solo" required></v-date-input>
                   </v-col>
-
                   <v-col>
                     <v-text-field v-model="pronouns" :rules="[required]" label="Pronouns" variant="solo"></v-text-field>
                   </v-col>
@@ -41,41 +25,55 @@
               <v-col cols="8">
                 <v-card color="light-green-lighten-4" height="500" width="950">
 
-                  <v-tabs v-model="tab" align-tabs="center" variant="text" bg-color="yellow-darken-3">
-                    <v-tab value="skinColor">skinColor</v-tab>
-                    <v-tab value="eyes">eyes</v-tab>
-                    <v-tab value="mouth">mouth</v-tab>
-                    <v-tab value="hair">hair</v-tab>
-                    <v-tab value="hairColor">hairColor</v-tab>
-                    <v-tab value="accessories">accessories</v-tab>
-                    <v-tab value="bgColor">bgColor</v-tab>
+                  <v-tabs v-model="tab" align-tabs="center" variant="text" bg-color="yellow-darken-3" height="60">
+                    <v-tab value="skinColor">
+                      <v-img width="50" max-width="50" :src="require('../assets/skin.svg')"/>
+                    </v-tab>
+                    <v-tab value="eyes">
+                      <v-img width="50" max-width="50" :src="require('../assets/eyes.svg')"/>
+                    </v-tab>
+                    <v-tab value="mouth">
+                      <v-img width="50" max-width="50" :src="require('../assets/mouth.svg')"/>
+                    </v-tab>
+                    <v-tab value="hair">
+                      <v-img width="50" max-width="50" :src="require('../assets/hair.svg')"/>
+                    </v-tab>
+                    <v-tab value="hairColor">
+                      <v-img width="30" max-width="30" :src="require('../assets/dye.svg')"/>
+                    </v-tab>
+                    <v-tab value="accessories">
+                      <v-img width="40" max-width="40" :src="require('../assets/accessories.svg')"/>
+                    </v-tab>
+                    <v-tab value="bgColor">
+                      <v-img width="50" max-width="50" :src="require('../assets/frame.svg')"/>
+                    </v-tab>
                   </v-tabs>
 
                   <v-card-text>
                     <v-tabs-window v-model="tab">
                       <v-tabs-window-item value="skinColor">
                         <v-btn-toggle v-model="skinColor" variant="outlined"
-                          class="d-flex flex-wrap justify-content align-center" style="width: 200%; height: 200%"
+                          class="d-flex flex-wrap justify-center align-center" style="width: 200%; height: 200%"
                           mandatory>
                           <v-btn value="8c5a2b" style="background: #8c5a2b;" rounded="xl" size="x-large"
-                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
                           <v-btn value="a47539" style="background: #a47539;" rounded="xl" size="x-large"
-                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
                           <v-btn value="c99c62" style="background: #c99c62;" rounded="xl" size="x-large"
-                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
                           <v-btn value="e2ba87" style="background: #e2ba87;" rounded="xl" size="x-large"
-                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
                           <v-btn value="efcc9f" style="background: #efcc9f;" rounded="xl" size="x-large"
-                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
                           <v-btn value="f5d7b1" style="background: #f5d7b1;" rounded="xl" size="x-large"
-                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
                           <v-btn value="ffe4c0" style="background: #ffe4c0;" rounded="xl" size="x-large"
-                            class="ma-3 border-lg rounded-circle" width="80" height="90"></v-btn>
+                            class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
                         </v-btn-toggle>
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="eyes">
-                        <div class="d-flex flex-row flex-wrap justify-content align-center">
+                        <div class="d-flex flex-row flex-wrap justify-center align-content-center">
                           <v-img class="mr-16 my-5" width="100" max-width="100"
                             :src="require('../assets/avatar/cheery.svg')" v-on:click="eyes = 'cheery'" />
                           <v-img class="ml-16 mr-16 my-5" width="100" max-width="100"
@@ -88,7 +86,7 @@
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="mouth">
-                        <div class="d-flex flex-row flex-wrap justify-content align-center">
+                        <div class="d-flex flex-row flex-wrap justify-center align-content-center">
                           <v-img class="ma-3" width="150" max-width="150" :src="require('../assets/avatar/braces.svg')"
                             v-on:click="mouth = 'braces'" />
                           <v-img class="ma-3" width="150" max-width="150"
@@ -105,7 +103,7 @@
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="hair">
-                        <div class="d-flex flex-row flex-wrap justify-content align-center">
+                        <div class="d-flex flex-row flex-wrap justify-center align-content-center">
                           <v-img class="mx-3" width="130" max-width="130"
                             :src="require('../assets/avatar/curlyBob.svg')" v-on:click="hair = 'curlyBob'" />
                           <v-img class="mx-3" width="130" max-width="130"
@@ -134,12 +132,15 @@
                             v-on:click="hair = 'bangs'" />
                           <v-img class="mx-3" width="130" max-width="130"
                             :src="require('../assets/avatar/bowlCutHair.svg')" v-on:click="hair = 'bowlCutHair'" />
+                          <v-img class="mx-3" width="130" max-width="130"
+                            :src="require('../assets/avatar/braids.svg')" v-on:click="hair = 'braids'" />
                         </div>
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="hairColor">
                         <v-btn-toggle v-model="hairColor" variant="outlined"
-                          class="d-flex flex-wrap justify-content align-center" mandatory>
+                            class="d-flex flex-wrap justify-center align-center" style="width: 200%; height: 200%"
+                            mandatory>
                           <v-btn value="220f00" style="background: #220f00" rounded="xl" size="x-large"
                             class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
                           <v-btn value="238d80" style="background: #238d80" rounded="xl" size="x-large"
@@ -160,7 +161,7 @@
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="accessories">
-                        <div class="d-flex flex-row flex-wrap justify-content align-center">
+                        <div class="d-flex flex-row flex-wrap justify-center align-content-center">
                           <v-btn class="pa-2 border-lg" rounded="xl" size="x-large"
                             v-on:click="accessories = ''">none</v-btn>
                           <v-img class="ml-16 mb-7" width="160" max-width="160"
@@ -185,7 +186,8 @@
 
                       <v-tabs-window-item value="bgColor">
                         <v-btn-toggle v-model="bgColor" variant="outlined"
-                          class="d-flex flex-wrap justify-content align-center" mandatory>
+                          class="d-flex flex-wrap justify-center align-center" style="width: 200%; height: 200%"
+                          mandatory>
                           <v-btn value="b6e3f4" style="background: #b6e3f4" rounded="xl" size="x-large"
                             class="ma-3 border-lg rounded-circle" width="100" height="100"></v-btn>
                           <v-btn value="c0aede" style="background: #c0aede" rounded="xl" size="x-large"
@@ -207,12 +209,41 @@
           </template>
 
           <template v-slot:[`item.2`]>
-            <v-card flat>
-              <v-form @submit.prevent>
-                <v-text-field v-model="username" :rules="usernameRules" label="Username"></v-text-field>
-                <v-btn class="mt-2" type="submit" v-on:click="login" block>Login</v-btn>
-              </v-form>
-            </v-card>
+            <v-row align="center" justify="space-around" no-gutters>
+              <v-col cols="3">
+                <v-avatar ref="avatar" :image="displayAvatar" size="100%"></v-avatar>
+              </v-col>
+              <v-col cols="8">
+                <v-card flat width="950">
+                    <v-form @submit.prevent>
+                      <v-row no-gutters>
+                        <v-col cols="3">
+                          <v-date-input v-model="date" label="Date of Birth" prepend-icon="" variant="solo" :rules="[required]"></v-date-input>
+                        </v-col>
+                        <v-col cols="3">
+                          <v-text-field v-model="pronouns" :rules="[required]" label="Pronouns" variant="solo"></v-text-field>
+                        </v-col>
+                        <v-col cols="6">
+                          <v-text-field v-model="username" :rules="usernameRules" label="Username" variant="solo"></v-text-field>
+                        </v-col>
+                      </v-row>
+                      <v-row no-gutters>
+                        <v-col>
+                          <v-text-field v-model="email" :rules="[required]" label="Email" variant="solo"></v-text-field>
+                        </v-col>
+                        <v-col>
+                          <v-text-field v-model="password" :rules="usernameRules" label="Password" variant="solo"></v-text-field>
+                        </v-col>
+                      </v-row>
+                      <div class="d-flex flex-wrap justify-center align-center">
+                        <v-btn type="submit" v-on:click="login" color="yellow-darken-3" width="100">Login</v-btn>
+                        <v-divider class="my-3"></v-divider>
+                        <v-btn type="submit" v-on:click="loginWithGoogle" color="yellow-darken-3">Login with Google</v-btn>
+                      </div>
+                    </v-form>
+                </v-card>
+              </v-col>
+            </v-row>
           </template>
 
           <template v-slot:[`item.3`]>
@@ -226,20 +257,30 @@
 
 <script>
 // firebase
-import { auth } from "./Firebase.js";
+import { auth, db, } from "./Firebase.js";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
   setPersistence,
   browserLocalPersistence,
+  updateProfile
 } from "firebase/auth";
+import { collection, doc, setDoc } from "firebase/firestore";
 // avatar API
 import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
+// date input
+import { VDateInput } from 'vuetify/labs/VDateInput';
+
+// firebase
+const usersCollectionRef = collection(db, "Users");
 
 export default {
   name: "LoginView",
+  components: {
+    VDateInput,
+  },
   data: () => ({
     tab: null,
     // avatar
@@ -251,8 +292,7 @@ export default {
     accessories: "glasses",
     bgColor: "c0aede",
     // forms
-    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-    menu: false,
+    date: null,
     pronouns: "",
     username: "",
   }),
@@ -275,6 +315,7 @@ export default {
         "accessoriesProbability": this.accessories == "" ? 0 : 100,
         "backgroundColor": [this.bgColor],
       }).toDataUri();
+      console.log(avatar);
       return avatar;
     }
   },
@@ -299,8 +340,28 @@ export default {
         });
     },
     loginWithGoogle() {
-      const googleProvider = new GoogleAuthProvider();
-      signInWithPopup(auth, googleProvider);
+      setPersistence(auth, browserLocalPersistence)
+        .then(() => {
+          const googleProvider = new GoogleAuthProvider();
+          signInWithPopup(auth, googleProvider);
+          // update user profile
+          updateProfile(auth.currentUser, {
+            displayName: this.username,
+            photoURL: this.displayAvatar,
+          });
+          console.log("username and profile picture set");
+          // store user in Firestore db
+          setDoc(doc(usersCollectionRef, auth.currentUser.uid), {
+            email: this.email,
+            username: this.username,
+            birthdate: this.date,
+            pronouns: this.pronouns,
+          });
+          console.log("user stored");
+        })
+        .catch((error) => {
+          console.log(error.code, error.message);
+        });
     },
   },
 };
@@ -314,7 +375,7 @@ body {
 form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-center: center;
   margin: 25px;
 }
 </style>
