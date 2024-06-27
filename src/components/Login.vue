@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-      <v-row align="center" justify="center" style="height: 90vh;" no-gutters>
+      <v-row align="center" justify="center" style="height: 80vh;" no-gutters>
         <v-stepper :items="['Create your Avatar', 'Register your account', 'Begin your journey']"
           bg-color="teal-lighten-5" class="border-lg border-surface-variant" min-width="1500">
 
@@ -220,11 +220,23 @@
                     </v-row>
                     <v-row style="margin-top: -15px;">
                       <v-col>
-                        <v-text-field v-model="email" :rules="[required]" label="Email" variant="solo"></v-text-field>
+                        <v-text-field v-model="email" :rules="[emailCheck]" label="Email" variant="solo"></v-text-field>
                       </v-col>
                       <v-col>
-                        <v-text-field v-model="password" :rules="usernameRules" label="Password"
-                          variant="solo"></v-text-field>
+                        <v-defaults-provider :defaults="{'VIcon':{'color':'success'}}">
+                          <v-text-field
+                            v-model="password"
+                            :append-icon="showPassword ? mdiEye : mdiEyeOff"
+                            :rules="usernameRules"
+                            :type="showPassword ? 'text' : 'password'"
+                            hint="At least 8 characters"
+                            label="Password"
+                            variant="solo"
+                            name="input-10-1"
+                            counter
+                            @click:append="showPassword = !showPassword"
+                          ></v-text-field>
+                        </v-defaults-provider>
                       </v-col>
                     </v-row>
                     <div class="d-flex flex-wrap justify-center align-center">
@@ -240,7 +252,8 @@
           </template>
 
           <template v-slot:[`item.3`]>
-            <v-card title="Step Three" flat>...</v-card>
+            <img :src="AppLogo" alt="SIKA" width="200"/>
+            <h1>Welcome to SIKA!</h1>
           </template>
         </v-stepper>
       </v-row>
@@ -266,6 +279,11 @@ import { createAvatar } from '@dicebear/core';
 import { bigSmile } from '@dicebear/collection';
 // date input
 import { VDateInput } from 'vuetify/labs/VDateInput';
+// svg icon
+import AppLogo from '../assets/sika-logo-3.svg';
+// icons
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiEye, mdiEyeOff } from '@mdi/js';
 
 // get Users collection from database
 const usersCollectionRef = collection(db, "Users");
@@ -274,6 +292,12 @@ export default {
   name: "LoginView",
   components: {
     VDateInput,
+  },
+  setup() {
+    return {
+      AppLogo,
+      SvgIcon,
+    };
   },
   data: () => ({
     tab: null,
@@ -289,6 +313,12 @@ export default {
     date: null,
     pronouns: "",
     username: "",
+    email: "",
+    password: "",
+    showPassword: false,
+    // icon
+    mdiEye: mdiEye,
+    mdiEyeOff: mdiEyeOff,
   }),
   computed: {
     setAccessories() {
@@ -321,11 +351,14 @@ export default {
     usernameCheck(v) {
       return /^(?=.{8,20}$)(?![.-])(?!.*[.]{2})[a-zA-Z0-9.-]+(?<![.])$/.test(v) || "Username must be 8-20 characters long. Avoid adding underscores, dashes, and periods."
     },
+    emailCheck(v) {
+      return /.+@.+\..+/.test(v) || "Email is invalid."
+    },
     login() {
       // store login credentials
       const email = this.email;
       const password = this.password;
-      createUserWithEmailAndPassword(this.state.email, this.state.password)
+      createUserWithEmailAndPassword(email, password)
         // if user doesn't exist, create account
         .then(() => {
           // update user profile
@@ -404,5 +437,9 @@ export default {
 <style>
 body {
   background: thistle;
+}
+
+.v-input__icon--append .v-icon { 
+  color: purple;
 }
 </style>

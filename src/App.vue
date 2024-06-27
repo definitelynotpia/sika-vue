@@ -1,22 +1,27 @@
 <template class="rounded-0">
   <v-layout class="d-flex justify-center align-center">
     <v-bottom-navigation grow>
-
-      <v-btn value="home" to="/">
-        <RouterLink to="/">
-          <svg-icon type="mdi" :path="mdiHomeVariant"></svg-icon>
-        </RouterLink>
-      </v-btn>
-
       <v-btn value="login" to="/login">
         <RouterLink to="/login">
           <svg-icon type="mdi" :path="mdiAccount"></svg-icon>
         </RouterLink>
       </v-btn>
 
+      <v-btn value="home" to="/">
+        <RouterLink to="/">
+          <svg-icon type="mdi" :path="mdiPalette"></svg-icon>
+        </RouterLink>
+      </v-btn>
+
       <v-btn value="register" to="/register">
         <RouterLink to="/register">
-          <svg-icon type="mdi" :path="mdiHomeVariant"></svg-icon>
+          <svg-icon type="mdi" :path="mdiBook"></svg-icon>
+        </RouterLink>
+      </v-btn>
+
+      <v-btn value="register" to="/register">
+        <RouterLink to="/register">
+          <svg-icon type="mdi" :path="mdiMessage"></svg-icon>
         </RouterLink>
       </v-btn>
     </v-bottom-navigation>
@@ -30,20 +35,19 @@
 <script>
 // icons
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiHomeVariant, mdiLoginVariant, mdiAccount } from '@mdi/js'
+import { mdiAccount, mdiPalette, mdiBook, mdiMessage } from '@mdi/js'
 
 export default {
   name: "App",
   components: {
     SvgIcon
   },
-  data() {
-    return {
-      mdiHomeVariant: mdiHomeVariant,
-      mdiLoginVariant: mdiLoginVariant,
-      mdiAccount: mdiAccount,
-    }
-  },
+  data: () => ({
+    mdiAccount: mdiAccount,
+    mdiPalette: mdiPalette,
+    mdiBook: mdiBook,
+    mdiMessage: mdiMessage,
+  }),
 };
 </script>
 
