@@ -3,17 +3,18 @@
     <v-container>
       <v-row align="center" justify="center" style="height: 90vh;" no-gutters>
         <v-stepper :items="['Create your Avatar', 'Register your account', 'Begin your journey']"
-          bg-color="teal-lighten-5" min-width="1500">
+          bg-color="teal-lighten-5" class="border-lg border-surface-variant" min-width="1500">
 
           <template v-slot:[`item.1`]>
             <v-row align="center" justify="space-around" no-gutters>
               <v-col cols="3">
-                <v-avatar ref="avatar" :image="displayAvatar" size="100%"></v-avatar>
+                <v-avatar ref="avatar" :image="displayAvatar" size="90%"></v-avatar>
                 <v-text-field v-model="username" :rules="[required, usernameRules]" label="Username" variant="solo"
                   class="mt-5"></v-text-field>
                 <v-row>
                   <v-col>
-                    <v-date-input v-model="date" label="Date of Birth" prepend-icon="" variant="solo" required></v-date-input>
+                    <v-date-input v-model="date" label="Date of Birth" prepend-icon="" variant="solo"
+                      required></v-date-input>
                   </v-col>
                   <v-col>
                     <v-text-field v-model="pronouns" :rules="[required]" label="Pronouns" variant="solo"></v-text-field>
@@ -23,30 +24,17 @@
               </v-col>
 
               <v-col cols="8">
-                <v-card color="light-green-lighten-4" height="500" width="950">
+                <v-card color="light-green-lighten-4" class="border-lg border-accent" height="500" width="950">
 
-                  <v-tabs v-model="tab" align-tabs="center" variant="text" bg-color="yellow-darken-3" height="60">
-                    <v-tab value="skinColor">
-                      <v-img width="50" max-width="50" :src="require('../assets/skin.svg')"/>
-                    </v-tab>
-                    <v-tab value="eyes">
-                      <v-img width="50" max-width="50" :src="require('../assets/eyes.svg')"/>
-                    </v-tab>
-                    <v-tab value="mouth">
-                      <v-img width="50" max-width="50" :src="require('../assets/mouth.svg')"/>
-                    </v-tab>
-                    <v-tab value="hair">
-                      <v-img width="50" max-width="50" :src="require('../assets/hair.svg')"/>
-                    </v-tab>
-                    <v-tab value="hairColor">
-                      <v-img width="30" max-width="30" :src="require('../assets/dye.svg')"/>
-                    </v-tab>
-                    <v-tab value="accessories">
-                      <v-img width="40" max-width="40" :src="require('../assets/accessories.svg')"/>
-                    </v-tab>
-                    <v-tab value="bgColor">
-                      <v-img width="50" max-width="50" :src="require('../assets/frame.svg')"/>
-                    </v-tab>
+                  <v-tabs v-model="tab" align-tabs="center" variant="text" bg-color="yellow-darken-3"
+                    class="border-b-lg border-surface-variant" height="70">
+                    <v-tab value="skinColor">SKIN</v-tab>
+                    <v-tab value="eyes">EYES</v-tab>
+                    <v-tab value="mouth">MOUTH</v-tab>
+                    <v-tab value="hair">HAIR</v-tab>
+                    <v-tab value="hairColor">DYE</v-tab>
+                    <v-tab value="accessories">ACCESSORIES</v-tab>
+                    <v-tab value="bgColor">BACKGROUND</v-tab>
                   </v-tabs>
 
                   <v-card-text>
@@ -132,15 +120,15 @@
                             v-on:click="hair = 'bangs'" />
                           <v-img class="mx-3" width="130" max-width="130"
                             :src="require('../assets/avatar/bowlCutHair.svg')" v-on:click="hair = 'bowlCutHair'" />
-                          <v-img class="mx-3" width="130" max-width="130"
-                            :src="require('../assets/avatar/braids.svg')" v-on:click="hair = 'braids'" />
+                          <v-img class="mx-3" width="130" max-width="130" :src="require('../assets/avatar/braids.svg')"
+                            v-on:click="hair = 'braids'" />
                         </div>
                       </v-tabs-window-item>
 
                       <v-tabs-window-item value="hairColor">
                         <v-btn-toggle v-model="hairColor" variant="outlined"
-                            class="d-flex flex-wrap justify-center align-center" style="width: 200%; height: 200%"
-                            mandatory>
+                          class="d-flex flex-wrap justify-center align-center" style="width: 200%; height: 200%"
+                          mandatory>
                           <v-btn value="220f00" style="background: #220f00" rounded="xl" size="x-large"
                             class="mx-1 border-lg rounded-circle" width="100" height="100"></v-btn>
                           <v-btn value="238d80" style="background: #238d80" rounded="xl" size="x-large"
@@ -211,36 +199,41 @@
           <template v-slot:[`item.2`]>
             <v-row align="center" justify="space-around" no-gutters>
               <v-col cols="3">
-                <v-avatar ref="avatar" :image="displayAvatar" size="100%"></v-avatar>
+                <v-avatar ref="avatar" :image="displayAvatar" size="85%"></v-avatar>
               </v-col>
               <v-col cols="8">
                 <v-card flat width="950">
-                    <v-form @submit.prevent>
-                      <v-row no-gutters>
-                        <v-col cols="3">
-                          <v-date-input v-model="date" label="Date of Birth" prepend-icon="" variant="solo" :rules="[required]"></v-date-input>
-                        </v-col>
-                        <v-col cols="3">
-                          <v-text-field v-model="pronouns" :rules="[required]" label="Pronouns" variant="solo"></v-text-field>
-                        </v-col>
-                        <v-col cols="6">
-                          <v-text-field v-model="username" :rules="usernameRules" label="Username" variant="solo"></v-text-field>
-                        </v-col>
-                      </v-row>
-                      <v-row no-gutters>
-                        <v-col>
-                          <v-text-field v-model="email" :rules="[required]" label="Email" variant="solo"></v-text-field>
-                        </v-col>
-                        <v-col>
-                          <v-text-field v-model="password" :rules="usernameRules" label="Password" variant="solo"></v-text-field>
-                        </v-col>
-                      </v-row>
-                      <div class="d-flex flex-wrap justify-center align-center">
-                        <v-btn type="submit" v-on:click="login" color="yellow-darken-3" width="100">Login</v-btn>
-                        <v-divider class="my-3"></v-divider>
-                        <v-btn type="submit" v-on:click="loginWithGoogle" color="yellow-darken-3">Login with Google</v-btn>
-                      </div>
-                    </v-form>
+                  <v-form @submit.prevent>
+                    <v-row>
+                      <v-col cols="3">
+                        <v-date-input v-model="date" label="Date of Birth" prepend-icon="" variant="solo"
+                          :rules="[required]"></v-date-input>
+                      </v-col>
+                      <v-col cols="3">
+                        <v-text-field v-model="pronouns" :rules="[required]" label="Pronouns"
+                          variant="solo"></v-text-field>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-text-field v-model="username" :rules="usernameRules" label="Username"
+                          variant="solo"></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <v-row style="margin-top: -15px;">
+                      <v-col>
+                        <v-text-field v-model="email" :rules="[required]" label="Email" variant="solo"></v-text-field>
+                      </v-col>
+                      <v-col>
+                        <v-text-field v-model="password" :rules="usernameRules" label="Password"
+                          variant="solo"></v-text-field>
+                      </v-col>
+                    </v-row>
+                    <div class="d-flex flex-wrap justify-center align-center">
+                      <v-btn type="submit" v-on:click="login" color="yellow-darken-3" width="100">Login</v-btn>
+                      <v-divider class="my-3"></v-divider>
+                      <v-btn type="submit" v-on:click="loginWithGoogle" color="yellow-darken-3">Login with
+                        Google</v-btn>
+                    </div>
+                  </v-form>
                 </v-card>
               </v-col>
             </v-row>
@@ -259,12 +252,13 @@
 // firebase
 import { auth, db, } from "./Firebase.js";
 import {
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
   setPersistence,
   browserLocalPersistence,
-  updateProfile
+  updateProfile,
 } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 // avatar API
@@ -273,7 +267,7 @@ import { bigSmile } from '@dicebear/collection';
 // date input
 import { VDateInput } from 'vuetify/labs/VDateInput';
 
-// firebase
+// get Users collection from database
 const usersCollectionRef = collection(db, "Users");
 
 export default {
@@ -328,15 +322,55 @@ export default {
       return /^(?=.{8,20}$)(?![.-])(?!.*[.]{2})[a-zA-Z0-9.-]+(?<![.])$/.test(v) || "Username must be 8-20 characters long. Avoid adding underscores, dashes, and periods."
     },
     login() {
+      // store login credentials
       const email = this.email;
       const password = this.password;
-      signInWithEmailAndPassword(auth, email, password);
-      setPersistence(auth, browserLocalPersistence)
+      createUserWithEmailAndPassword(this.state.email, this.state.password)
+        // if user doesn't exist, create account
         .then(() => {
-          this.$router.push("/");
+          // update user profile
+          updateProfile(auth.currentUser, {
+            displayName: this.username,
+            photoURL: this.displayAvatar,
+          });
+          console.log("username and profile picture set");
+          // store user in Firestore db at id: user ID
+          setDoc(doc(usersCollectionRef, auth.currentUser.uid), {
+            email: this.email,
+            username: this.username,
+            birthdate: this.date,
+            pronouns: this.pronouns,
+          });
+          console.log("user stored");
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(error => {
+          switch (error.code) {
+            // if account exists, log in with credentials
+            case 'auth/email-already-in-use':
+              signInWithEmailAndPassword(auth, email, password);
+              // set user browser session
+              setPersistence(auth, browserLocalPersistence)
+                .then(() => {
+                  // go to home page
+                  this.$router.push("/");
+                })
+                .catch((error) => {
+                  console.error(error);
+                });
+              break;
+            case 'auth/invalid-email':
+              console.log(`Email address ${this.state.email} is invalid.`);
+              break;
+            case 'auth/operation-not-allowed':
+              console.log(`Error during sign up.`);
+              break;
+            case 'auth/weak-password':
+              console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
+              break;
+            default:
+              console.log(error.message);
+              break;
+          }
         });
     },
     loginWithGoogle() {
@@ -370,12 +404,5 @@ export default {
 <style>
 body {
   background: thistle;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  justify-center: center;
-  margin: 25px;
 }
 </style>

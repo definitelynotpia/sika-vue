@@ -1,4 +1,4 @@
-<template>
+<template class="rounded-0">
   <v-layout class="d-flex justify-center align-center">
     <v-bottom-navigation grow>
 
@@ -21,7 +21,9 @@
       </v-btn>
     </v-bottom-navigation>
 
-    <main><RouterView /></main>
+    <main>
+      <RouterView />
+    </main>
   </v-layout>
 </template>
 
@@ -46,8 +48,19 @@ export default {
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: 'LoRes15OT-Bold';
+  src: url('assets/fonts/LoRes15OT-Bold.ttf');
+}
+
+// @font-face {
+//   font-family: 'LoRes15OT-AltOakland-Bold';
+//   src: url('assets/fonts/LoRes15OT-AltOakland-Bold.ttf');
+// }
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'LoRes15OT-Bold';
+  font-size: 1.5em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

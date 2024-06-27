@@ -1,23 +1,19 @@
 <template>
-    <div id="app">
-        <h1>Home</h1>
-
-        <div class="color-picker">
-            <v-color-picker v-model="color" hide-canvas hide-sliders show-swatches hide-inputs
-                width="800"></v-color-picker>
-        </div>
+    <div id="app" class="d-flex flex-column justify-center align-center">
+        <v-color-picker v-model="color" hide-canvas show-swatches hide-inputs :swatches="swatches"
+            class="ma-5 border-lg border-light rounded-0" width="800" color="transparent"></v-color-picker>
 
         <canvas ref="canvas" id="drawing-pad" @mousedown="startPainting" @mouseup="finishedPainting" @mousemove="draw"
-            width="800" height="700"></canvas>
+            class="rounded-0" width="800" height="700"></canvas>
 
-        <div>
-            <v-btn variant="tonal" size="large" @click="clearCanvas" color="danger">
+        <div class="d-flex flex-row justify-center">
+            <v-btn variant="tonal" size="large" @click="clearCanvas" color="danger" class="my-5 mr-5">
                 <svg-icon type="mdi" :path="mdiDelete"></svg-icon>
             </v-btn>
-            <v-btn variant="tonal" size="large" @click="exportArt">
+            <v-btn variant="tonal" size="large" @click="exportArt" class="my-5 mr-5">
                 <svg-icon type="mdi" :path="mdiExportVariant"></svg-icon>
             </v-btn>
-            <v-btn variant="tonal" size="large" @click="replayArt">
+            <v-btn variant="tonal" size="large" @click="replayArt" class="my-5 mr-5">
                 <svg-icon type="mdi" :path="mdiPlay"></svg-icon>
             </v-btn>
         </div>
@@ -35,21 +31,28 @@ export default {
     components: {
         SvgIcon
     },
-    data() {
-        return {
-            canvas: null,
-            context: null,
-            color: "#000000",
-            isDrawing: false,
-            startX: 0,
-            startY: 0,
-            points: [],
-            // icons
-            mdiDelete: mdiDelete,
-            mdiPlay: mdiPlay,
-            mdiExportVariant: mdiExportVariant,
-        }
-    },
+    data: () => ({
+        canvas: null,
+        context: null,
+        color: "#000000",
+        isDrawing: false,
+        startX: 0,
+        startY: 0,
+        swatches: [
+            ['#e81416',],
+            ['#ffa500',],
+            ['#faeb36',],
+            ['#79c314',],
+            ['#487de7',],
+            ['#4b369d',],
+            ['#70369d',],
+        ],
+        points: [],
+        // icons
+        mdiDelete: mdiDelete,
+        mdiPlay: mdiPlay,
+        mdiExportVariant: mdiExportVariant,
+    }),
     mounted() {
         var vm = this
         vm.canvas = vm.$refs.canvas;
